@@ -8,7 +8,7 @@ const Post = require('./models/post');
 const app = express();
 const routes = require('./routes/adminroutes')
 
-mongoose.connect(" ")
+mongoose.connect("mongodb+srv://rahulkumar:rahulkumar@cluster0.t0dmc.mongodb.net/Survey_Database_Group3")
 .then(() => {
   console.log('Connected to database!');
 })
