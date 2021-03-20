@@ -6,21 +6,24 @@
     <div></div>
   </span>
   <span>
-    <a routerLink="/">
+    <a routerLink="/" routerLinkActive="mat-accent">
       <img class="d-inline-block mx-2" src="assets/image/logo.png" alt width="250" height="80"></a>
   </span>
   <span class="example-spacer"></span>
   <span>
-    <a mat-button routerLink="/createsurvey" routerLinkActive="mat-accent">New Survey</a>
+    <a mat-button routerLink="/home" routerLinkActive="mat-accent"><mat-icon>home</mat-icon>Home</a>
   </span>
   <span>
-    <a mat-button routerLink="/createsurvey" routerLinkActive="mat-accent">Edit survey</a>
+    <a mat-button routerLink="/survey/list-survey" routerLinkActive="mat-accent"><mat-icon>assignment</mat-icon>Survey</a>
   </span>
   <span>
-    <a mat-button routerLink="/createsurvey" routerLinkActive="mat-accent">Login</a>
+    <a mat-button routerLink="/about" routerLinkActive="mat-accent"><mat-icon>contact_support</mat-icon>About</a>
   </span>
   <span>
-    <a mat-button routerLink="/createsurvey" routerLinkActive="mat-accent">Register</a>
+    <a mat-button routerLink="/user/login" routerLinkActive="mat-accent"><mat-icon>login</mat-icon>Login</a>
+  </span>
+  <span>
+    <a mat-button routerLink="/user/register" routerLinkActive="mat-accent"><mat-icon>assignment_ind</mat-icon>Register</a>
   </span>
   <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
     <mat-icon>favorite</mat-icon>
