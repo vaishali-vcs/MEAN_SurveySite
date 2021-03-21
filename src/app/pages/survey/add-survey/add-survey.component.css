@@ -1,0 +1,20 @@
+.parent {
+  margin-top: 2em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.datediv
+{
+  text-align: left;
+  justify-content: left;
+  align-items: left;
+}
+
+.addbutton
+{
+  margin-top: 2em;
+margin-right: 2em;
+}
