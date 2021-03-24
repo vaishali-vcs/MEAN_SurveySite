@@ -1,0 +1,39 @@
+<div class='parent'>
+  <h2>Product Satisfaction Survey Form</h2>
+  <mat-form-field appearance="fill" style="width:25vw">
+    <mat-label>When did you use our product?</mat-label>
+    <input matInput [matDatepicker]="picker">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" style="width:25vw">
+    <mat-label>Name of the product</mat-label>
+    <input matInput>
+  </mat-form-field>
+  <mat-label appearance="fill">Overall how satisfied are you with the product?</mat-label>
+    <mat-radio-group aria-labelledby="example-radio-group-label"
+    appearance="fill" style="width:25vw"  class="radio-group">
+
+      <mat-radio-button class="mat-option" value="1">Very Satisfied</mat-radio-button>
+      <mat-radio-button class="mat-option" value="2">Satisfied</mat-radio-button>
+      <mat-radio-button class="mat-option" value="3">Neutral</mat-radio-button>
+      <mat-radio-button class="mat-option" value="4">Unsatisfied</mat-radio-button>
+      <mat-radio-button class="mat-option" value="5">N/A</mat-radio-button>
+    </mat-radio-group>
+
+  <mat-form-field appearance="fill" style="width:25vw">
+    <mat-label>Would you recommend us for a friend?</mat-label>
+    <mat-select>
+      <mat-option>Select</mat-option>
+      <mat-option value="1">Yes</mat-option>
+      <mat-option value="2">MayBe</mat-option>
+      <mat-option value="3">No</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <div >
+    <button class="example-button-row" mat-raised-button style="width:7vw" color="accent">Respond</button>
+    <button mat-raised-button style="width:7vw"  color="primary">Quit</button>
+  </div>
+</div>
+
