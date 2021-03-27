@@ -33,11 +33,7 @@ mongoDB.once('open', ()=>{
 
 
 let surveyRouter = require('../routes/survey');
-
-
 let app = express();
-
-
 
 app.use(logger('dev'));
 app.use(express.json());
@@ -92,7 +88,7 @@ let strategy = new JWTStrategy(jwtOptions, (jwt_payload, done) => {
 passport.use(strategy);
 */
 // routing
-app.use('/survey', surveyRouter);
+app.use('/api/admin/survey', surveyRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

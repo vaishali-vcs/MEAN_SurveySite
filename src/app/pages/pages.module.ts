@@ -3,8 +3,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { SurveyModule } from './survey/survey.module';
 import { PartialsModule } from '../partials/partials.module';
-import {MatGridListModule} from '@angular/material/grid-list';
-import {MatButtonModule} from '@angular/material/button';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatButtonModule } from '@angular/material/button';
 
 import { RouterModule } from '@angular/router';
 import { AboutComponent } from './about/about.component';

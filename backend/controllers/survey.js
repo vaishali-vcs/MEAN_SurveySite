@@ -5,38 +5,42 @@ let mongoose = require('mongoose');
 let jwt = require('jsonwebtoken');
 
 // create a reference to the model
-let survey = require('../models/survey');
+let Surveys = require('../models/survey');
 
 module.exports.displaysurveyList = (req, res, next) => {
-    survey.find((err, surveyList) => {
+  Surveys.find({},(err, surveyList) => {
         if(err)
         {
             return console.error(err);
         }
         else
         {
-            //console.log(surveyList);
-
-            /*
-            res.render('survey/list', 
-            {title: 'surveys', 
-            surveyList: surveyList, 
-            displayName: req.user ? req.user.displayName : ''});      
-            */
-
-            res.json(surveyList);
+            res.status(200).json({success: true, msg: 'Successfully Displayed survey to Edit', surveyList});
         }
     });
 }
 
-module.exports.displayAddPage = (req, res, next) => {
-    /*
-    res.render('survey/add', {title: 'Add survey', 
-    displayName: req.user ? req.user.displayName : ''});
-    */
-   
-    res.json({success: true, msg: 'Succesfully Displayed Add Page'});
+exports.postAddSurvey = ((req, res, next) => {
+  const Survey = new Surveys({
+    name: req.body.name,
+    title: req.body.title,
+    created: req.body.created,
+    expires: req.body.expires,
+    status: req.body.status,
+    questions: req.body.questions
+  });
+  Survey.save().then(createdSurvey => {
+    console.log(createdSurvey);
+    res.status(201).json({
+      message: "Survey added successfully",
+      survey: {
+        ...createdSurvey,
+        id: createdSurvey._id
+      }
+    });
+  });
 }
+);
 
 module.exports.processAddPage = (req, res, next) => {
     let newsurvey = survey({
@@ -55,10 +59,7 @@ module.exports.processAddPage = (req, res, next) => {
         }
         else
         {
-            // refresh the survey list
-            //res.redirect('/survey-list');
-
-            res.json({success: true, msg: 'Successfully Added New survey'});
+          res.status(200).json({success: true, msg: 'Successfully Added New survey'});
         }
     });
 
@@ -75,13 +76,7 @@ module.exports.displayEditPage = (req, res, next) => {
         }
         else
         {
-            //show the edit view
-            /*
-            res.render('survey/edit', {title: 'Edit survey', survey: surveyToEdit, 
-            displayName: req.user ? req.user.displayName : ''});
-            */
-
-            res.json({success: true, msg: 'Successfully Displayed survey to Edit', survey: surveyToEdit});
+          res.status(200).json({success: true, msg: 'Successfully Displayed survey to Edit', survey: surveyToEdit});
         }
     });
 }
@@ -106,10 +101,7 @@ module.exports.processEditPage = (req, res, next) => {
         }
         else
         {
-            // refresh the survey list
-            //res.redirect('/survey-list');
-
-            res.json({success: true, msg: 'Successfully Edited survey', survey: updatedsurvey});
+            res.status(200).json({success: true, msg: 'Successfully Edited survey', survey: updatedsurvey});
         }
     });
 }
@@ -125,10 +117,7 @@ module.exports.performDelete = (req, res, next) => {
         }
         else
         {
-             // refresh the survey list
-             //res.redirect('/survey-list');
-
-             res.json({success: true, msg: 'Successfully Deleted survey'});
+          res.status(200).json({success: true, msg: 'Successfully Deleted survey'});
         }
     });
 }
