@@ -19,11 +19,6 @@ const surveyResponseSchema = new Schema({
     type: String,
     required: true
   },
-  createdby: {
-    type: String,
-    required: true
-  }
-  ,
   createdon: {
     type: Date,
     required: true

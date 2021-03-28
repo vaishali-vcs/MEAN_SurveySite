@@ -1,8 +1,5 @@
 export interface SurveyResponseSchema {
-  responseid: string | null;
-  surveyid: string | null;
-  createdby: string;
-  createdon: Date;
+  surveyid: string;
   questions: QuestionAnswerSchema[];
 }
 

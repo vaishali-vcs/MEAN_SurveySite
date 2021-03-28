@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup, FormGroupName, FormControl, FormBuilder,
   ReactiveFormsModule , Validators, FormArray } from '@angular/forms';
+import { QuestionAnswerSchema, SurveyResponseSchema } from 'src/app/models/surveyresponse.model';
+import { SurveyService } from 'src/app/services/survey.service';
 
 @Component({
   selector: 'app-respond-survey',
@@ -35,19 +37,35 @@ export class RespondSurveyComponent implements OnInit {
     }
   ];
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(public surveyService: SurveyService) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     let group: any = {};
     this.formtemplate.forEach(inputtemplate => {
       group[inputtemplate.controlName] = new FormControl('');
     });
     this.surveyForm = new FormGroup(group);
   }
+
   onSubmit(): void {
+    if (this.surveyForm.invalid) {
+      return;
+    }
+
+    const Questions: QuestionAnswerSchema[] = [];
+
     this.formtemplate.forEach(inputtemplate => {
-    console.log(this.surveyForm.controls[inputtemplate.controlName].value);
-    });
+      console.log(this.surveyForm.controls[inputtemplate.controlName].value);
+      Questions.push({question: inputtemplate.question,
+      answer: this.surveyForm.controls[inputtemplate.controlName].value });
+      });
+
+    const surveyResponseData: SurveyResponseSchema = {
+      surveyid: '1',   // hard coded for now
+      questions: Questions
+    };
+
+    this.surveyService.addSurveyResponse(surveyResponseData);
   }
   }
 

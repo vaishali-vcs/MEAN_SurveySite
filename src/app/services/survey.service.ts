@@ -11,6 +11,7 @@ import { SurveyResponseSchema } from '../models/surveyresponse.model';
 export class SurveyService {
   private surveyListUpdated = new Subject<SurveySchema[]>();
   private surveyDataList: SurveySchema[] = [];
+  private baseURl = 'http://localhost:3000/api/admin/survey/';
 
   constructor(private http: HttpClient, private router: Router) { }
 
@@ -52,19 +53,16 @@ export class SurveyService {
 
   addSurveyResponse(response: SurveyResponseSchema): string{
     const surveyResponseData: SurveyResponseSchema = {
-      responseid: null,
       surveyid: response.surveyid,
-      createdby: response.createdby,
-      createdon: response.createdon,
       questions: response.questions
     };
 
     this.http
       .post<{ message: string }>(
-        "http://localhost:3000/api/admin/survey/response/add",
+        this.baseURl + 'response/add',
         surveyResponseData).subscribe(responseData => {
         console.log(responseData);
                 });
-    return 'success';
+    return 'Submitted';
   }
 }

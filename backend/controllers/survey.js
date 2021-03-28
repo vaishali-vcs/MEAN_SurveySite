@@ -48,7 +48,6 @@ module.exports.addResponse = (req, res, next) => {
 
   const Response = new SurveyResponses({
     surveyid: req.body.surveyid,
-      createdby: req.body.createdby,
       createdon: Date.now(),
       questions: req.body.questions
   });
