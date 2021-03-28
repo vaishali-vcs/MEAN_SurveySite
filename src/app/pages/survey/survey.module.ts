@@ -17,11 +17,12 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RespondSurveyComponent } from './respond-survey/respond-survey.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [BrowserModule, FormsModule, RouterModule,
     MatFormFieldModule, MatSelectModule, MatInputModule, BrowserAnimationsModule, MatRadioModule,
-    MatDatepickerModule, MatNativeDateModule, MatButtonModule, MatTableModule],
+    MatDatepickerModule, MatNativeDateModule, MatButtonModule, MatTableModule, ReactiveFormsModule],
   declarations: [ListSurveyComponent, AddSurveyComponent, EditSurveyComponent, RespondSurveyComponent],
   exports: [ListSurveyComponent, AddSurveyComponent, EditSurveyComponent]
 })
