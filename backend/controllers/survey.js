@@ -6,6 +6,7 @@ let jwt = require('jsonwebtoken');
 
 // create a reference to the model
 let Surveys = require('../models/survey');
+let SurveyResponses  = require('../models/survey.response');
 
 module.exports.displaysurveyList = (req, res, next) => {
   Surveys.find({},(err, surveyList) => {
@@ -41,6 +42,30 @@ exports.postAddSurvey = ((req, res, next) => {
   });
 }
 );
+
+
+module.exports.addResponse = (req, res, next) => {
+
+  const Response = new SurveyResponses({
+    surveyid: req.body.surveyid,
+      createdby: req.body.createdby,
+      createdon: Date.now(),
+      questions: req.body.questions
+  });
+
+  console.log(req.body);
+  Response.save(function (err) {
+    if(err)
+    {
+        console.log(err);
+        res.status(400).json({success: false, msg: 'response not added'});
+    }
+    else
+    {
+      res.status(200).json({success: true, msg: 'successfully Added New response'});
+    }
+  });
+}
 
 module.exports.processAddPage = (req, res, next) => {
     let newsurvey = survey({
@@ -121,3 +146,4 @@ module.exports.performDelete = (req, res, next) => {
         }
     });
 }
+

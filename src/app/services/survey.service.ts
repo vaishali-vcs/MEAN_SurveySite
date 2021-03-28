@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http'
+import { HttpClient } from '@angular/common/http';
 import { Subject } from 'rxjs';
-import { map } from 'rxjs/operators'
+import { map } from 'rxjs/operators';
 
 import { SurveySchema } from '../models/survey.model';
 import { Router } from '@angular/router';
+import { SurveyResponseSchema } from '../models/surveyresponse.model';
 
 @Injectable({ providedIn: 'root' })
 export class SurveyService {
@@ -47,5 +48,23 @@ export class SurveyService {
         this.surveyListUpdated.next([...this.surveyDataList]);
         this.router.navigate(['/']);
       });
+  }
+
+  addSurveyResponse(response: SurveyResponseSchema): string{
+    const surveyResponseData: SurveyResponseSchema = {
+      responseid: null,
+      surveyid: response.surveyid,
+      createdby: response.createdby,
+      createdon: response.createdon,
+      questions: response.questions
+    };
+
+    this.http
+      .post<{ message: string }>(
+        "http://localhost:3000/api/admin/survey/response/add",
+        surveyResponseData).subscribe(responseData => {
+        console.log(responseData);
+                });
+    return 'success';
   }
 }

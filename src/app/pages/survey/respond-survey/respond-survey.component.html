@@ -1,39 +1,54 @@
-<div class='parent'>
-  <h2>Product Satisfaction Survey Form</h2>
-  <mat-form-field appearance="fill" style="width:25vw">
-    <mat-label>When did you use our product?</mat-label>
-    <input matInput [matDatepicker]="picker">
-    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-datepicker #picker></mat-datepicker>
-  </mat-form-field>
+<div class="container">
+  <div class="row">
 
-  <mat-form-field appearance="fill" style="width:25vw">
-    <mat-label>Name of the product</mat-label>
-    <input matInput>
-  </mat-form-field>
-  <mat-label appearance="fill">Overall how satisfied are you with the product?</mat-label>
-    <mat-radio-group aria-labelledby="example-radio-group-label"
-    appearance="fill" style="width:25vw"  class="radio-group">
+    <div class="panel panel-primary">
+      <div class="panel-heading">
+        <h3 class="panel-title"></h3>
+      </div>
+      <div class="panel-body">
+        <form [formGroup]="surveyForm" (ngSubmit)="onSubmit()">
+          <div class="form-group" *ngFor="let form_elem of formtemplate">
+            <div [ngSwitch]="form_elem.type">
 
-      <mat-radio-button class="mat-option" value="1">Very Satisfied</mat-radio-button>
-      <mat-radio-button class="mat-option" value="2">Satisfied</mat-radio-button>
-      <mat-radio-button class="mat-option" value="3">Neutral</mat-radio-button>
-      <mat-radio-button class="mat-option" value="4">Unsatisfied</mat-radio-button>
-      <mat-radio-button class="mat-option" value="5">N/A</mat-radio-button>
-    </mat-radio-group>
+              <div *ngSwitchCase="'textBox'">
+                <mat-form-field class="example-full-width">
+                  <mat-label>{{form_elem.question}}</mat-label>
+                  <input matInput formControlName="{{form_elem.controlName}}">
+                </mat-form-field>
+              </div>
+              <div *ngSwitchCase="'datepicker'">
+                <mat-form-field appearance="fill" style="width:25vw">
+                  <mat-label>{{form_elem.question}}</mat-label>
+                  <input matInput [matDatepicker]="picker" formControlName="{{form_elem.controlName}}">
+                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+              </div>
+              <div *ngSwitchCase="'dropdown'">
+                <mat-form-field appearance="fill" style="width:25vw">
+                  <mat-label>{{form_elem.question}}</mat-label>
+                  <mat-select formControlName="{{form_elem.controlName}}">
+                    <mat-option *ngFor="let option of form_elem.options" value={{option}}>{{option}}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+              <div *ngSwitchCase="'radio-group'">
+                <mat-label appearance="fill">{{form_elem.question}}</mat-label>
+                <mat-radio-group aria-label="Select an option"
+                appearance="fill" style="width:25vw" class="radio-group" formControlName="{{form_elem.controlName}}">
 
-  <mat-form-field appearance="fill" style="width:25vw">
-    <mat-label>Would you recommend us for a friend?</mat-label>
-    <mat-select>
-      <mat-option>Select</mat-option>
-      <mat-option value="1">Yes</mat-option>
-      <mat-option value="2">MayBe</mat-option>
-      <mat-option value="3">No</mat-option>
-    </mat-select>
-  </mat-form-field>
-  <div >
-    <button class="example-button-row" mat-raised-button style="width:7vw" color="accent">Respond</button>
-    <button mat-raised-button style="width:7vw"  color="primary">Quit</button>
+                  <mat-radio-button *ngFor="let option of form_elem.options" value={{option}}>{{option}}
+                  </mat-radio-button>
+
+
+                </mat-radio-group>
+              </div>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+      <br>
+    </div>
   </div>
 </div>
-
