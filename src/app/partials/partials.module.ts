@@ -7,9 +7,10 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { FooterComponent } from './Footer/footer.componet';
+import { MDBBootstrapModule } from 'angular-bootstrap-md';
 
 @NgModule({
-  imports: [BrowserModule, FormsModule, RouterModule, MatToolbarModule, MatIconModule, MatButtonModule],
+  imports: [BrowserModule, FormsModule, RouterModule, MatToolbarModule, MatIconModule, MatButtonModule, MDBBootstrapModule],
   declarations: [HeaderComponent, FooterComponent],
   exports: [HeaderComponent, FooterComponent]
 })
