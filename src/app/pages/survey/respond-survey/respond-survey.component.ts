@@ -25,7 +25,7 @@ export class RespondSurveyComponent implements OnInit {
   surveydata: QuestionSchema[];
   group: any = {};
   formtemplate: InputControlSchema[] = [];
-
+  serviceResponse: string = '';
   survey: SurveySchema;
 
   constructor(public surveyService: SurveyService) {
@@ -54,14 +54,11 @@ export class RespondSurveyComponent implements OnInit {
   }
 
   onSubmit(): void {
-    if (this.surveyForm.invalid) {
-      return;
-    }
+    if (!this.surveyForm.invalid) {
 
     const Questions: QuestionAnswerSchema[] = [];
 
     this.formtemplate.forEach(inputtemplate => {
-      console.log(this.surveyForm.controls[inputtemplate.controlName].value);
       Questions.push({question: inputtemplate.question,
       answer: this.surveyForm.controls[inputtemplate.controlName].value });
       });
@@ -70,8 +67,8 @@ export class RespondSurveyComponent implements OnInit {
       surveyid: this.surveyID,   // hard coded for now
       questions: Questions
     };
-
-    this.surveyService.addSurveyResponse(surveyResponseData);
+    console.log(surveyResponseData);
+    this.serviceResponse = this.surveyService.addSurveyResponse(surveyResponseData);
+    }
   }
-  }
-
+}

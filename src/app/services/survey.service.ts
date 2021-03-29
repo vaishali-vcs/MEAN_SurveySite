@@ -70,6 +70,6 @@ export class SurveyService {
         surveyResponseData).subscribe(responseData => {
         console.log(responseData);
                 });
-    return 'Submitted';
+    return 'Successfully added your response';
   }
 }
