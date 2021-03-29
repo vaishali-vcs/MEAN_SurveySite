@@ -90,18 +90,18 @@ module.exports.processAddPage = (req, res, next) => {
 }
 
 module.exports.displayEditPage = (req, res, next) => {
-    let id = req.params.id;
+  let id = req.params.id;
 
-    survey.findById(id, (err, surveyToEdit) => {
-        if(err)
-        {
-            console.log(err);
-            res.end(err);
-        }
-        else
-        {
-          res.status(200).json({success: true, msg: 'Successfully Displayed survey to Edit', survey: surveyToEdit});
-        }
+
+  Surveys.findById(id, function(err, survey) {
+      if (err) {
+
+        res.json(err);
+      }
+      else {
+            console.log(id);
+            res.status(200).json(survey);
+      }
     });
 }
 

@@ -35,4 +35,7 @@ router.post('/edit/:id', requireAuth, surveyController.processEditPage);
 router.get('/delete/:id', requireAuth, surveyController.performDelete);
 
 router.post('/response/add', surveyController.addResponse);
+
+/* GET Route for displaying the Survey Response page */
+router.get('/read/:id', surveyController.displayEditPage);
 module.exports = router;
