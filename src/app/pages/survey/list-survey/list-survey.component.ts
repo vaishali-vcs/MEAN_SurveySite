@@ -2,6 +2,7 @@ import { Component, ViewChild } from '@angular/core'
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
+import { SurveyService } from '../../../services/survey.service';
 
 export interface UserData {
   id: string;
@@ -27,13 +28,14 @@ const NAMES: string[] = [
 })
 
 export class ListSurveyComponent {
-  displayedColumns: string[] = ['id', 'name', 'progress', 'color'];
+  displayedColumns: string[] = ['id', 'name', 'progress', 'color', 'edit', 'delete'];
   dataSource: MatTableDataSource<UserData>;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
+  serviceResponse = '';
 
-  constructor() {
+  constructor(private surveyService: SurveyService) {
     // Create 100 users
     const users = Array.from({length: 100}, (_, k) => createNewUser(k + 1));
 
@@ -54,6 +56,15 @@ export class ListSurveyComponent {
       this.dataSource.paginator.firstPage();
     }
   }
+
+  RemoveSurvey(id: string): void{
+    this.serviceResponse = this.surveyService.deleteSurvey('6063af6c6a6fdf08a0eb2ec8');
+    // console.log('clicked');
+  }
+
+  dismiss(): void{
+    this.serviceResponse = '';
+  }
 }
 
 /** Builds and returns a new User. */
@@ -68,3 +79,5 @@ function createNewUser(id: number): UserData {
     color: COLORS[Math.round(Math.random() * (COLORS.length - 1))]
   };
 }
+
+
