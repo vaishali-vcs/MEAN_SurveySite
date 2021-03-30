@@ -8,8 +8,6 @@
 
 .radio-group {
   display: flex; flex-direction: column;
-  /* display: inline-grid; */
-  /* display: grid; */
   margin: 15px;
 }
 
@@ -20,4 +18,8 @@
 .example-button-row {
 
   margin-right: 8px;
+}
+
+.invalid{
+  color:#f44336;
 }
