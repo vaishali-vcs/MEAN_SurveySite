@@ -71,4 +71,8 @@ export class RespondSurveyComponent implements OnInit {
     this.serviceResponse = this.surveyService.addSurveyResponse(surveyResponseData);
     }
   }
+
+  dismiss(): void{
+    this.serviceResponse = '';
+  }
 }

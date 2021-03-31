@@ -133,7 +133,7 @@ module.exports.processEditPage = (req, res, next) => {
 module.exports.performDelete = (req, res, next) => {
     let id = req.params.id;
 
-    survey.remove({_id: id}, (err) => {
+    Surveys.remove({_id: id}, (err) => {
         if(err)
         {
             console.log(err);

@@ -7,7 +7,7 @@
       </div>
       <div *ngIf="serviceResponse.length>0" class="alert alert-success alert-dismissible fade show" role="alert">
         {{serviceResponse}}
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <button type="button" class="close" (click)="dismiss()" data-dismiss="alert" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
@@ -52,7 +52,7 @@
             </div>
           </div>
           <button class="example-button-row" type="submit" mat-raised-button style="width:7vw" color="accent">Respond</button>
-          <button mat-raised-button style="width:7vw"  color="primary">Quit</button>
+          <button mat-raised-button style="width:7vw"  color="primary" routerLink="/survey/list-survey" >Quit</button>
         </form>
       </div>
       <br>

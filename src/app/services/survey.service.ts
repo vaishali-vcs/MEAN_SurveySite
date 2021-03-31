@@ -12,9 +12,7 @@ import { SurveyResponseSchema } from '../models/surveyresponse.model';
 export class SurveyService {
   private surveyListUpdated = new Subject<SurveySchema[]>();
   private surveyDataList: SurveySchema[] = [];
-  private survey: SurveySchema;
   private baseURl = 'http://localhost:3000/api/admin/survey/';
-
   constructor(private http: HttpClient, private router: Router) { }
 
   getSurvaeyUpdateListner() {
@@ -71,5 +69,14 @@ export class SurveyService {
         console.log(responseData);
                 });
     return 'Successfully added your response';
+  }
+
+  deleteSurvey(id: string): string {
+    this.http.get(this.baseURl + '/delete/' + id).subscribe(
+      result => {
+       console.log(result);
+      }
+  );
+    return 'Survey deleted successfully.';
   }
 }

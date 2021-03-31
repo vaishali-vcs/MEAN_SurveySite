@@ -20,12 +20,13 @@ import { RespondSurveyComponent } from './respond-survey/respond-survey.componen
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatCardModule } from '@angular/material/card';
 import { ReactiveFormsModule } from '@angular/forms';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
   imports: [BrowserModule, FormsModule, RouterModule,
     MatFormFieldModule, MatSelectModule, MatInputModule, BrowserAnimationsModule, MatRadioModule,
     MatDatepickerModule, MatNativeDateModule, MatButtonModule, MatTableModule, MatPaginatorModule,
-     MatCardModule, ReactiveFormsModule],
+     MatCardModule, ReactiveFormsModule, MatIconModule],
   declarations: [ListSurveyComponent, AddSurveyComponent, EditSurveyComponent, RespondSurveyComponent],
   exports: [ListSurveyComponent, AddSurveyComponent, EditSurveyComponent]
 })
