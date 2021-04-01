@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router';
 import { ListSurveyComponent } from '../survey/list-survey/list-survey.component';
 import { AddSurveyComponent } from './add-survey/add-survey.component';
 import { EditSurveyComponent } from './edit-survey/edit-survey.component';
+import { CoreComponentModule } from '../../core-component/core-component.module';
 
 import { MatRadioModule} from '@angular/material/radio';
 import { MatDatepickerModule, } from '@angular/material/datepicker';
@@ -21,14 +22,16 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatCardModule } from '@angular/material/card';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
+import { MatChipsModule } from '@angular/material/chips';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
   imports: [BrowserModule, FormsModule, RouterModule,
     MatFormFieldModule, MatSelectModule, MatInputModule, BrowserAnimationsModule, MatRadioModule,
     MatDatepickerModule, MatNativeDateModule, MatButtonModule, MatTableModule, MatPaginatorModule,
-     MatCardModule, ReactiveFormsModule, MatIconModule],
+     MatCardModule, ReactiveFormsModule, MatIconModule,MatChipsModule, CoreComponentModule, FlexLayoutModule],
   declarations: [ListSurveyComponent, AddSurveyComponent, EditSurveyComponent, RespondSurveyComponent],
-  exports: [ListSurveyComponent, AddSurveyComponent, EditSurveyComponent]
+  exports: [ListSurveyComponent, AddSurveyComponent, EditSurveyComponent, CoreComponentModule]
 })
 
 export class SurveyModule {}
