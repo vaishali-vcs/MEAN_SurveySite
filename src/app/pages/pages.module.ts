@@ -11,11 +11,12 @@ import { AboutComponent } from './about/about.component';
 import { AuthModule } from './auth/auth.module';
 import { HomeComponent } from './home/home.component';
 
+
 @NgModule({
   imports: [SurveyModule, BrowserModule, FormsModule, RouterModule, PartialsModule,
     MatGridListModule, MatButtonModule, AuthModule ],
   declarations: [AboutComponent, HomeComponent],
-  exports: [SurveyModule, PartialsModule, AuthModule]
+  exports: [SurveyModule, PartialsModule, AuthModule, AboutComponent]
 })
 
 export class PagesModule {}

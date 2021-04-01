@@ -1,0 +1,17 @@
+  <mat-form-field class="example-chip-list" appearance="outline">
+    <mat-label>{{placeholder}}</mat-label>
+    <mat-chip-list #chipList [formControl]="groupsCtrl" >
+      <mat-chip *ngFor="let chip of chips.value" [selectable]="selectable"
+              [removable]="removable" (removed)="remove(chip)">
+        {{chip}}
+        <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+      </mat-chip>
+      <input placeholder={{onClickPlaceholder}}
+      required
+            [matChipInputFor]="chipList"
+            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+            [matChipInputAddOnBlur]="addOnBlur"
+            (matChipInputTokenEnd)="add($event)">
+    </mat-chip-list>
+  </mat-form-field>
+
