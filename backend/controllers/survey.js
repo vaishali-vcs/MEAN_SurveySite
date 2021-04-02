@@ -107,7 +107,7 @@ module.exports.displayEditPage = (req, res, next) => {
 
 module.exports.processEditPage = (req, res, next) => {
   let id = req.params.id
-  console.log(id);
+
   let updatedsurvey = Surveys({
     name: req.body.name,
     title: req.body.title,
@@ -116,7 +116,7 @@ module.exports.processEditPage = (req, res, next) => {
     status: req.body.status,
     questions: req.body.questions
   });
-  console.log(updatedsurvey);
+
   Surveys.updateOne(
     {_id: id},  // <-- find stage
     { $set: {                // <-- set stage
@@ -126,10 +126,8 @@ module.exports.processEditPage = (req, res, next) => {
       expires: req.body.expires,
       status: req.body.status,
       questions: req.body.questions
-      }
-    }
-  ).then(result => {
-    res.status(200).json({ message: "Update successful!" });
+      }}).then(result => {
+    res.status(200).json({ message: "Update successful!"});
   });
 }
 

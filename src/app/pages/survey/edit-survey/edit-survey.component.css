@@ -1,0 +1,25 @@
+.parent {
+  margin-top: 2em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.radio-group {
+  display: flex; flex-direction: column;
+  margin: 15px;
+}
+
+.mat-option
+{
+  margin-bottom: 6px;
+}
+.example-button-row {
+
+  margin-right: 8px;
+}
+
+.invalid{
+  color:#f44336;
+}

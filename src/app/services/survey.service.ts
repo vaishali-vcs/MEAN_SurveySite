@@ -51,6 +51,19 @@ export class SurveyService {
       });
   }
 
+  editSurvey(survey: SurveySchema): string{
+    this.http
+      .post<{ message: string, survey: SurveySchema }>(
+        this.baseURl + 'edit/' + survey.id,
+        survey).subscribe(result => {
+          this.surveyDataList = this.surveyDataList.filter(item => item.id === survey.id);
+          this.surveyDataList.push(survey);
+          this.surveyListUpdated.next([...this.surveyDataList]);
+        });
+
+    return 'Survey edited successfuly';
+  }
+
   getSurvey(id: string): Observable<SurveySchema>
   {
     return this.http.get<SurveySchema>(this.baseURl + 'read/' + id);
