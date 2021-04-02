@@ -106,28 +106,31 @@ module.exports.displayEditPage = (req, res, next) => {
 }
 
 module.exports.processEditPage = (req, res, next) => {
-    let id = req.params.id
-
-    let updatedsurvey = survey({
-        "_id": id,
-        "name": req.body.name,
-        "author": req.body.author,
-        "published": req.body.published,
-        "description": req.body.description,
-        "price": req.body.price
-    });
-
-    survey.updateOne({_id: id}, updatedsurvey, (err) => {
-        if(err)
-        {
-            console.log(err);
-            res.end(err);
-        }
-        else
-        {
-            res.status(200).json({success: true, msg: 'Successfully Edited survey', survey: updatedsurvey});
-        }
-    });
+  let id = req.params.id
+  console.log(id);
+  let updatedsurvey = Surveys({
+    name: req.body.name,
+    title: req.body.title,
+    created: req.body.created,
+    expires: req.body.expires,
+    status: req.body.status,
+    questions: req.body.questions
+  });
+  console.log(updatedsurvey);
+  Surveys.updateOne(
+    {_id: id},  // <-- find stage
+    { $set: {                // <-- set stage
+      name: req.body.name,
+      title: req.body.title,
+      created: req.body.created,
+      expires: req.body.expires,
+      status: req.body.status,
+      questions: req.body.questions
+      }
+    }
+  ).then(result => {
+    res.status(200).json({ message: "Update successful!" });
+  });
 }
 
 module.exports.performDelete = (req, res, next) => {
