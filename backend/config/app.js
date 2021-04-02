@@ -33,6 +33,7 @@ mongoDB.once('open', ()=>{
 
 
 let surveyRouter = require('../routes/survey');
+let userRouter = require('../routes/user');
 let app = express();
 
 app.use(logger('dev'));
@@ -89,6 +90,7 @@ passport.use(strategy);
 */
 // routing
 app.use('/api/admin/survey', surveyRouter);
+app.use('/api/admin/user', userRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

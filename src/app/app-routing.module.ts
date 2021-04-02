@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { AboutComponent } from './pages/about/about.component';
 import { LoginComponent } from './pages/auth/login/login.component';
-import { RegisterComponent } from './pages/auth/register/register..component';
+import { RegisterComponent } from './pages/auth/register/register.component';
 import { HomeComponent } from './pages/home/home.component';
 import { AddSurveyComponent } from './pages/survey/add-survey/add-survey.component';
 import { EditSurveyComponent } from './pages/survey/edit-survey/edit-survey.component';
