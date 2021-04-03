@@ -87,7 +87,6 @@ export class SurveyService {
       .post<{ message: string }>(
         this.baseURl + 'response/add',
         surveyResponseData).subscribe(responseData => {
-        console.log(responseData);
                 });
     return 'Successfully added your response';
   }
@@ -95,7 +94,6 @@ export class SurveyService {
   deleteSurvey(id: string): string {
     this.http.get(this.baseURl + '/delete/' + id).subscribe(
       result => {
-       console.log(result);
       }
   );
     return 'Survey deleted successfully.';

@@ -16,3 +16,10 @@ td, th {
   margin-right: auto;
   max-width: 80%;
 }
+
+.valign-center
+{
+  display: inline-flex;
+  vertical-align: middle;
+  align-items: center;
+}

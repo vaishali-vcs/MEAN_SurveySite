@@ -6,12 +6,6 @@ import { element } from 'protractor';
 import { QuestionSchema, SurveySchema } from 'src/app/models/survey.model';
 import { SurveyService } from '../../../services/survey.service';
 
-export interface Data {
-  // id: string;
-  name: string;
-  // title: string;
-  // status: string;
-}
 
 @Component({
   selector: 'app-list-survey',
@@ -39,7 +33,6 @@ export class ListSurveyComponent implements OnInit {
 
   ngOnInit(): void {
     this.fetchData();
-    console.log(this.SurveyList);
   }
 
   constructor(private surveyService: SurveyService) {

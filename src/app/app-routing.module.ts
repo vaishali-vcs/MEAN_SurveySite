@@ -15,7 +15,7 @@ const routes: Routes = [{ path: '', component: HomeComponent },
 { path: 'survey/list-survey', component: ListSurveyComponent },
 { path: 'survey/add-survey', component: AddSurveyComponent },
 { path: 'survey/edit-survey/:id', component: EditSurveyComponent },
-{ path: 'survey/respond-survey', component: RespondSurveyComponent },
+{ path: 'survey/respond-survey/:id', component: RespondSurveyComponent },
 { path: 'about', component: AboutComponent },
 { path: 'user/login', component: LoginComponent },
 { path: 'user/register', component: RegisterComponent }
