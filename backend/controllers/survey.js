@@ -16,7 +16,7 @@ module.exports.displaysurveyList = (req, res, next) => {
         }
         else
         {
-            res.status(200).json({surveyList});
+            res.status(200).json(surveyList);
         }
     });
 }
@@ -146,4 +146,3 @@ module.exports.performDelete = (req, res, next) => {
         }
     });
 }
-

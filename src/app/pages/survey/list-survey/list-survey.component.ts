@@ -3,25 +3,15 @@ import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
 import { element } from 'protractor';
-import { SurveySchema } from 'src/app/models/survey.model';
+import { QuestionSchema, SurveySchema } from 'src/app/models/survey.model';
 import { SurveyService } from '../../../services/survey.service';
 
-export interface UserData {
-  id: string;
+export interface Data {
+  // id: string;
   name: string;
-  progress: string;
-  color: string;
+  // title: string;
+  // status: string;
 }
-
-/** Constants used to fill up our data base. */
-const COLORS: string[] = [
-  'maroon', 'red', 'orange', 'yellow', 'olive', 'green', 'purple', 'fuchsia', 'lime', 'teal',
-  'aqua', 'blue', 'navy', 'black', 'gray'
-];
-const NAMES: string[] = [
-  'Maia', 'Asher', 'Olivia', 'Atticus', 'Amelia', 'Jack', 'Charlotte', 'Theodore', 'Isla', 'Oliver',
-  'Isabella', 'Jasper', 'Cora', 'Levi', 'Violet', 'Arthur', 'Mia', 'Thomas', 'Elizabeth'
-];
 
 @Component({
   selector: 'app-list-survey',
@@ -29,50 +19,31 @@ const NAMES: string[] = [
   styleUrls: ['./list-survey.component.css']
 })
 export class ListSurveyComponent implements OnInit {
-  displayedColumns: string[] = ['id', 'name', 'progress', 'color', 'edit', 'delete'];
-  dataSource: MatTableDataSource<UserData>;
+  displayedColumns: string[] = ['title', 'status', 'edit', 'delete' ];
 
+  serviceResponse = '';
+  SurveyList: SurveySchema[] = [];
+  dataSource = new MatTableDataSource<SurveySchema>();
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
-  serviceResponse = '';
-  SurveyDataList: SurveySchema[] = [];
 
-
-  fetchData():void{
+  fetchData(): void{
     this.surveyService.fetchSurveys().subscribe(data => {
-
-      this.SurveyDataList = data;
-
-      /*
-      data = data as SurveySchema [];
-      console.log(typeof(data));
-
-      
-      data.forEach(element => {
-        this.SurveyDataList.push({
-          id: element.id,
-          title: element.title,
-          name: element.name,
-          created: element.created,
-          expires: element.expires,
-          status: element.status,
-          questions: element.questions
+      data.forEach(element =>
+        {
+          this.SurveyList.push(element);
         });
-*/
+      this.dataSource.data = data;
       });
     }
 
-  ngOnInit() {
-    console.log(this.SurveyDataList);
+  ngOnInit(): void {
+    this.fetchData();
+    console.log(this.SurveyList);
   }
 
   constructor(private surveyService: SurveyService) {
-    // Create 100 users
-    const users = Array.from({length: 100}, (_, k) => createNewUser(k + 1));
 
-    this.fetchData();
-    // Assign the data to the data source for the table to render
-    this.dataSource = new MatTableDataSource(users);
   }
 
   ngAfterViewInit() {
@@ -90,28 +61,11 @@ export class ListSurveyComponent implements OnInit {
   }
 
   RemoveSurvey(id: string): void{
-    this.serviceResponse = this.surveyService.deleteSurvey('6063af6c6a6fdf08a0eb2ec8');
-    // console.log('clicked');
+    this.serviceResponse = this.surveyService.deleteSurvey(id);
+    this.fetchData();
   }
 
   dismiss(): void{
     this.serviceResponse = '';
   }
 }
-
-/** Builds and returns a new User. */
-function createNewUser(id: number): UserData {
-  const name = NAMES[Math.round(Math.random() * (NAMES.length - 1))] + ' ' +
-      NAMES[Math.round(Math.random() * (NAMES.length - 1))].charAt(0) + '.';
-
-
-
-  return {
-    id: id.toString(),
-    name: name,
-    progress: Math.round(Math.random() * 100).toString(),
-    color: COLORS[Math.round(Math.random() * (COLORS.length - 1))]
-  };
-}
-
-
