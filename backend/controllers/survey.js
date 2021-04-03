@@ -9,7 +9,15 @@ let Surveys = require('../models/survey');
 let SurveyResponses  = require('../models/survey.response');
 
 module.exports.displaysurveyList = (req, res, next) => {
-  Surveys.find({},(err, surveyList) => {
+  Surveys.find({
+    name: req.body.name,
+    title: req.body.title,
+    created: req.body.created,
+    expires: req.body.expires,
+    status: req.body.status,
+    questions: req.body.questions
+    
+  },(err, surveyList) => {
         if(err)
         {
             return console.error(err);
@@ -66,16 +74,18 @@ module.exports.addResponse = (req, res, next) => {
   });
 }
 
+//===============================================================
 module.exports.processAddPage = (req, res, next) => {
-    let newsurvey = survey({
-        "name": req.body.name,
-        "author": req.body.author,
-        "published": req.body.published,
-        "description": req.body.description,
-        "price": req.body.price
+    let newsurvey = Surveys({ 
+        name: req.body.name,
+        title: req.body.title,
+        created: req.body.created,
+        expires: req.body.expires,
+        status: req.body.status,
+        questions: req.body.questions       
     });
 
-    survey.create(newsurvey, (err, survey) =>{
+    Surveys.create(newsurvey, (err, survey) =>{
         if(err)
         {
             console.log(err);
