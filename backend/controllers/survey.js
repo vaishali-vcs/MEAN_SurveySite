@@ -16,7 +16,7 @@ module.exports.displaysurveyList = (req, res, next) => {
         }
         else
         {
-            res.status(200).json({success: true, msg: 'Successfully Displayed survey to Edit', surveyList});
+            res.status(200).json({surveyList});
         }
     });
 }

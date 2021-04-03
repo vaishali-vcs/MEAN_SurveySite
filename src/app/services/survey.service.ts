@@ -51,6 +51,14 @@ export class SurveyService {
       });
   }
 
+  fetchSurveys(): Observable<SurveySchema[]>{
+    return this.http.get<SurveySchema[]>(
+      this.baseURl);
+      
+
+    
+  }
+
   editSurvey(survey: SurveySchema): string{
     this.http
       .post<{ message: string, survey: SurveySchema }>(
