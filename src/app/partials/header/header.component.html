@@ -25,6 +25,9 @@
   <span *ngIf="!userIsAuthenticated">
     <a mat-button routerLink="/user/register" routerLinkActive="mat-accent"><mat-icon>assignment_ind</mat-icon>Register</a>
   </span>
+  <span *ngIf="userIsAuthenticated">
+    <button mat-button (click)="onLogout()">Logout</button>
+  </span>
   <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
     <mat-icon>favorite</mat-icon>
   </button>
