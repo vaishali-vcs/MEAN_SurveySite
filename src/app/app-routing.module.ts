@@ -9,6 +9,7 @@ import { AddSurveyComponent } from './pages/survey/add-survey/add-survey.compone
 import { EditSurveyComponent } from './pages/survey/edit-survey/edit-survey.component';
 import { ListSurveyComponent } from './pages/survey/list-survey/list-survey.component';
 import { RespondSurveyComponent } from './pages/survey/respond-survey/respond-survey.component';
+import { AuthGuard } from "./pages/auth/auth.guard";
 
 const routes: Routes = [{ path: '', component: HomeComponent },
 { path: 'home', component: HomeComponent },
@@ -23,6 +24,7 @@ const routes: Routes = [{ path: '', component: HomeComponent },
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [AuthGuard]
 })
 export class AppRoutingModule { }
