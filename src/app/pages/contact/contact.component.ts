@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import {FormsModule,ReactiveFormsModule} from '@angular/forms';
+import { Z_DATA_ERROR } from 'node:zlib';
+import { ContactSchema } from '../../models/contact.model';
+import { ContactService } from '../../services/contact.service';
 
 @Component({
   selector: 'app-contact',
@@ -16,7 +19,7 @@ export class ContactComponent implements OnInit {
     inputmessage: ''
   },{ validators: [Validators.required]});
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(private formBuilder: FormBuilder, private contactService: ContactService) { }
 
   ngOnInit(): void {
   }
@@ -27,10 +30,15 @@ export class ContactComponent implements OnInit {
       return;
     }
     this.Response = 'Thank you for reaching out. We will contact you in 2 business days.';
-    console.log(this.contactForm.controls.inputname.value);
-    console.log(this.contactForm.controls.inputemail.value);
-    console.log(this.contactForm.controls.inputsubject.value);
-    console.log(this.contactForm.controls.inputmessage.value);
+    const contact: ContactSchema = {
+      name: this.contactForm.controls.inputname.value,
+      email: this.contactForm.controls.inputemail.value,
+      subject: this.contactForm.controls.inputsubject.value,
+      message: this.contactForm.controls.inputmessage.value,
+      createdon: new Date()
+    };
+    this.contactService.addContact(contact);
+    this.contactForm.reset();
   }
 
   dismiss(): void{
