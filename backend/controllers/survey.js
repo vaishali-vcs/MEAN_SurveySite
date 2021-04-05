@@ -146,3 +146,17 @@ module.exports.performDelete = (req, res, next) => {
         }
     });
 }
+
+module.exports.getResponses= (req, res, next) => {
+  let id = req.params.id;
+  SurveyResponses.find({surveyid : id},(err, surveyresponseList) => {
+    if(err)
+    {
+        return console.error(err);
+    }
+    else
+    {
+        res.status(200).json(surveyresponseList);
+    }
+});
+}

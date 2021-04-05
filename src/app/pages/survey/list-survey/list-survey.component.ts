@@ -13,7 +13,7 @@ import { SurveyService } from '../../../services/survey.service';
   styleUrls: ['./list-survey.component.css']
 })
 export class ListSurveyComponent implements OnInit {
-  displayedColumns: string[] = ['title', 'status', 'edit', 'delete' ];
+  displayedColumns: string[] = ['title', 'status', 'edit', 'delete', 'report' ];
 
   serviceResponse = '';
   SurveyList: SurveySchema[] = [];
