@@ -27,6 +27,8 @@ router.post('/response/add', surveyController.addResponse);
 
 router.get('/response/:id', surveyController.getResponses);
 
+router.post('/contact/add', surveyController.addContact);
+
 /* GET Route for displaying the Survey Response page */
 router.get('/read/:id', surveyController.displayEditPage);
 module.exports = router;

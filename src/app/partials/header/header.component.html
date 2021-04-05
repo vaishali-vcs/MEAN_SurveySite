@@ -19,6 +19,9 @@
   <span *ngIf="!userIsAuthenticated" >
     <a mat-button routerLink="/about" routerLinkActive="mat-accent"><mat-icon>contact_support</mat-icon>About</a>
   </span>
+  <span class="material-icons">
+    <a mat-button routerLink="/contact" routerLinkActive="mat-accent"><mat-icon>phonelink_ring</mat-icon>Contact Us</a>
+    </span>
   <span *ngIf="!userIsAuthenticated">
     <a mat-button routerLink="/user/login" routerLinkActive="mat-accent"><mat-icon>login</mat-icon>Login</a>
   </span>

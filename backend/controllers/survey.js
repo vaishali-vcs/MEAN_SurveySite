@@ -160,3 +160,7 @@ module.exports.getResponses= (req, res, next) => {
     }
 });
 }
+
+module.exports.addContact= (req, res, next) => {
+}
+
