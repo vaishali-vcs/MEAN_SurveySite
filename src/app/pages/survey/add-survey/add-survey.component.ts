@@ -26,9 +26,9 @@ export class AddSurveyComponent {
   private surveyId: string;
   answertype: string[] = [
     'Dropdown',
-    'Text',
+    'Textbox',
     'Radio Button',
-    'Date Picker',
+    'DatePicker',
   ];
   options: ['test1', 'test2', 'Test3']
   dataSource = new BehaviorSubject<AbstractControl[]>([]);

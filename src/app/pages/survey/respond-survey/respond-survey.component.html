@@ -14,9 +14,9 @@
       <div class="panel-body">
         <form [formGroup]="surveyForm" (ngSubmit)="onSubmit()">
           <div class="form-group" *ngFor="let form_elem of formtemplate">
-            <div [ngSwitch]="form_elem.type">
+            <div [ngSwitch]="form_elem.type | lowercase ">
 
-              <div *ngSwitchCase="'textBox'">
+              <div *ngSwitchCase="'textbox'">
                 <mat-form-field class="example-full-width">
                   <mat-label>{{form_elem.question}}</mat-label>
                   <input matInput formControlName="{{form_elem.controlName}}">
@@ -41,7 +41,7 @@
                   <mat-error *ngIf="surveyForm.invalid">This is required</mat-error>
                 </mat-form-field>
               </div>
-              <div *ngSwitchCase="'radio-group'">
+              <div *ngSwitchCase="'radio button'">
                 <mat-label appearance="fill">{{form_elem.question}}</mat-label>
                 <mat-radio-group aria-label="Select an option"
                 appearance="fill" style="width:25vw" class="radio-group" formControlName="{{form_elem.controlName}}">
