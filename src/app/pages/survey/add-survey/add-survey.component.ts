@@ -12,45 +12,7 @@ import { BehaviorSubject } from 'rxjs';
 
 import { SurveySchema, QuestionSchema } from '../../../models/survey.model';
 import { SurveyService } from '../../../services/survey.service';
-
-// export interface QuestionElement {
-//   question: string;
-//   options: string;
-//   answertype: string[];
-// }
-
-// const answertype: string[] = [
-//   'dropdown',
-//   'text',
-//   'radio buttons',
-//   'date picker',
-// ];
-// const question = '';
-// const options = '';
-
-// const ELEMENT_DATA: QuestionElement[] = [
-//   { question, answertype, options },
-//   { question, answertype, options },
-//   { question, answertype, options },
-// ];
-
-const Questions: QuestionSchema[] = [
-  {
-    question: 'Question 1',
-    type: 'checkbox',
-    options: ['test1', 'test2', 'Test3'],
-  },
-  {
-    question: 'Question 2',
-    type: 'checkbox',
-    options: ['test1', 'test2', 'Test3'],
-  },
-  {
-    question: 'Question 3',
-    type: 'checkbox',
-    options: ['test1', 'test2', 'Test3'],
-  },
-];
+import { ActivatedRoute, ParamMap } from '@angular/router';
 
 @Component({
   selector: 'app-add-survey',
@@ -59,6 +21,9 @@ const Questions: QuestionSchema[] = [
 })
 export class AddSurveyComponent {
   data = [];
+  isDataLoaded:boolean = false;
+  private mode = "create";
+  private surveyId: string;
   answertype: string[] = [
     'Dropdown',
     'Text',
@@ -68,69 +33,126 @@ export class AddSurveyComponent {
   options: ['test1', 'test2', 'Test3']
   dataSource = new BehaviorSubject<AbstractControl[]>([]);
   displayColumns: string[] = ['question', 'answertype', 'options', 'remove'];
-  rows: FormArray = this.fb.array([]);
   form: FormGroup = this.fb.group({
     titleCtrl: new FormControl(''),
-    discriptionCtrl: new FormControl(''),
+    descriptionCtrl: new FormControl(''),
     expiretCtrl: new FormControl(''),
-    questions: this.rows,
+    questions:this.fb.array([
+      this.addQuestionFormGroup()
+    ])
   });
-
-  initOptions() {
-    return new FormControl('');
-  }
 
   /** UniversityWebPagesFields */
   surveyQuestionsPlaceholder: string = 'Options';
   surveyQuestionsInputPlaceholder: string =
     'Option 1, Option 2, Option 3, Option 4';
 
-  constructor(public surveyService: SurveyService, private fb: FormBuilder) {}
+  constructor(public surveyService: SurveyService, private fb: FormBuilder, public route: ActivatedRoute) {}
 
   ngOnInit() {
+    this.onEditPage();
     this.data.forEach(() => this.onAddQuestion());
     this.updateView();
   }
 
+  onEditPage(){
+    this.route.paramMap.subscribe((paramMap: ParamMap) => {
+      if (paramMap.has("id")) {
+        if(this.isDataLoaded === false){
+          this.mode = "edit";
+          this.surveyId = paramMap.get("id")!;
+          this.surveyService.getSurvey(this.surveyId).subscribe(
+            (survey: SurveySchema) => this.editSurvey(survey),
+            (err:any) => console.log(err)
+          );
+        }else return;
+      } else {
+        this.mode = "create";
+        this.surveyId = null!;
+      }
+    });
+  }
+
+  editSurvey(survey: SurveySchema){
+    this.form.patchValue({
+      titleCtrl: survey.title,
+      descriptionCtrl:  survey.description,
+      expiretCtrl: survey.expires,
+    });
+    this.form.setControl('questions', this.setExistingQuestions(survey.questions));
+    this.updateView();
+    this.isDataLoaded = true;
+  }
+
+  setExistingQuestions(questions: QuestionSchema[]): FormArray{
+    const formArray = new FormArray([]);
+    questions.forEach(q =>{
+      formArray.push(this.fb.group({
+        question: [q.question],
+        type: [q.type],
+        options: [q.options]
+      }));
+    });
+    console.log(formArray);
+    return formArray;
+  }
+
+
   emptyTable() {
-    while (this.rows.length !== 0) {
-      this.rows.removeAt(0);
+    while (this.getQuestionsFormArray().length !== 1) {
+      this.getQuestionsFormArray().removeAt(0);
     }
     this.ngOnInit()
   }
 
   removeAt(index: number) {
-    this.rows.removeAt(index);
+    this.getQuestionsFormArray().removeAt(index);
     this.ngOnInit()
   }
 
-  updateView() {
-    this.dataSource.next(this.rows.controls);
+  getQuestionsFormArray():FormArray{
+    return (<FormArray>this.form.get('questions'));
   }
 
-  onAddQuestion(): void {
-    const question = this.fb.group({
+  updateView() {
+    this.dataSource.next(this.getQuestionsFormArray().controls);
+  }
+
+  addQuestionFormGroup(): FormGroup {
+    return this.fb.group({
       question: '',
       type: '',
       options: '',
     });
-    this.rows.push(question);
+  }
+
+  onAddQuestion():void{
+    this.getQuestionsFormArray().push(this.addQuestionFormGroup());
     this.updateView();
   }
 
-  onAddSurvey(): void {
+  onSaveSurvey(): void {
     if (this.form.invalid || this.form.controls.questions.value == 0 ) {
       return;
     }
+
     const surveyData: SurveySchema = {
-      id: null,
+      id: null!,
       name: "Name of User",
       title: this.form.controls.titleCtrl.value,
-      created: new Date(2017, 4, 4, 17, 23, 42, 11),
+      description: this.form.controls.descriptionCtrl.value,
+      created: new Date(),
       expires: this.form.controls.expiretCtrl.value,
       status: 'Created',
       questions: this.form.controls.questions.value,
     };
-    this.surveyService.addSurvey(surveyData);
+
+    if(this.mode === 'create'){
+      this.surveyService.addSurvey(surveyData);
+    } else{
+      surveyData.id = this.surveyId;
+      this.surveyService.editSurvey(surveyData);
+    }
+
   }
 }

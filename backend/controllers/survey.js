@@ -10,14 +10,14 @@ let SurveyResponses  = require('../models/survey.response');
 let Contact  = require('../models/contact');
 
 module.exports.displaysurveyList = (req, res, next) => {
-  Surveys.find({},(err, surveyList) => {
+  Surveys.find((err, surveys) => {
         if(err)
         {
             return console.error(err);
         }
         else
         {
-            res.status(200).json(surveyList);
+            res.status(200).json(surveys);
         }
     });
 }
@@ -26,6 +26,7 @@ exports.postAddSurvey = ((req, res, next) => {
   const Survey = new Surveys({
     name: req.body.name,
     title: req.body.title,
+    description: req.body.description,
     created: req.body.created,
     expires: req.body.expires,
     status: req.body.status,
@@ -43,7 +44,6 @@ exports.postAddSurvey = ((req, res, next) => {
   });
 }
 );
-
 
 module.exports.addResponse = (req, res, next) => {
 
@@ -67,36 +67,10 @@ module.exports.addResponse = (req, res, next) => {
   });
 }
 
-module.exports.processAddPage = (req, res, next) => {
-    let newsurvey = survey({
-        "name": req.body.name,
-        "author": req.body.author,
-        "published": req.body.published,
-        "description": req.body.description,
-        "price": req.body.price
-    });
-
-    survey.create(newsurvey, (err, survey) =>{
-        if(err)
-        {
-            console.log(err);
-            res.end(err);
-        }
-        else
-        {
-          res.status(200).json({success: true, msg: 'Successfully Added New survey'});
-        }
-    });
-
-}
-
 module.exports.displayEditPage = (req, res, next) => {
   let id = req.params.id;
-
-
   Surveys.findById(id, function(err, survey) {
       if (err) {
-
         res.json(err);
       }
       else {
@@ -112,6 +86,7 @@ module.exports.processEditPage = (req, res, next) => {
   let updatedsurvey = Surveys({
     name: req.body.name,
     title: req.body.title,
+    description: req.body.description,
     created: req.body.created,
     expires: req.body.expires,
     status: req.body.status,
@@ -123,6 +98,7 @@ module.exports.processEditPage = (req, res, next) => {
     { $set: {                // <-- set stage
       name: req.body.name,
       title: req.body.title,
+      description: req.body.description,
       created: req.body.created,
       expires: req.body.expires,
       status: req.body.status,

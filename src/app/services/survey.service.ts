@@ -21,9 +21,10 @@ export class SurveyService {
 
   addSurvey(survey: SurveySchema) {
     const surveyData: SurveySchema = {
-      id: null,
+      id: null!,
       name: survey.name,
       title: survey.title,
+      description: survey.description,
       created: survey.created,
       expires: survey.expires,
       status: survey.status,
@@ -40,6 +41,7 @@ export class SurveyService {
           id: responseData.survey.id,
           name: responseData.survey.name,
           title: responseData.survey.title,
+          description: responseData.survey.description,
           created: responseData.survey.created,
           expires: responseData.survey.expires,
           status: responseData.survey.status,
@@ -47,16 +49,13 @@ export class SurveyService {
         };
         this.surveyDataList.push(addedSurvey);
         this.surveyListUpdated.next([...this.surveyDataList]);
-        this.router.navigate(['/']);
+        this.router.navigate(['/survey/list-survey']);
       });
   }
 
   fetchSurveys(): Observable<SurveySchema[]>{
     return this.http.get<SurveySchema[]>(
       this.baseURl);
-
-
-
   }
 
   editSurvey(survey: SurveySchema): string{
@@ -67,6 +66,7 @@ export class SurveyService {
           this.surveyDataList = this.surveyDataList.filter(item => item.id === survey.id);
           this.surveyDataList.push(survey);
           this.surveyListUpdated.next([...this.surveyDataList]);
+          this.router.navigate(['/survey/list-survey']);
         });
 
     return 'Survey edited successfuly';
@@ -76,6 +76,10 @@ export class SurveyService {
   {
     return this.http.get<SurveySchema>(this.baseURl + 'read/' + id);
   }
+
+  // getSurvey(id: string):SurveySchema {
+  //   return { ...this.surveyDataList.find(p => p.id === id) };
+  // }
 
   addSurveyResponse(response: SurveyResponseSchema): string{
     const surveyResponseData: SurveyResponseSchema = {

@@ -1,11 +1,10 @@
 import { Component, ViewChild, OnInit } from '@angular/core'
-import {MatPaginator} from '@angular/material/paginator';
-import {MatSort} from '@angular/material/sort';
-import {MatTableDataSource} from '@angular/material/table';
-import { element } from 'protractor';
-import { QuestionSchema, SurveySchema } from 'src/app/models/survey.model';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
+import { Router } from '@angular/router';
+import { SurveySchema } from 'src/app/models/survey.model';
 import { SurveyService } from '../../../services/survey.service';
-
 
 @Component({
   selector: 'app-list-survey',
@@ -35,8 +34,7 @@ export class ListSurveyComponent implements OnInit {
     this.fetchData();
   }
 
-  constructor(private surveyService: SurveyService) {
-
+  constructor(private surveyService: SurveyService, public routes:Router) {
   }
 
   ngAfterViewInit() {
@@ -51,6 +49,10 @@ export class ListSurveyComponent implements OnInit {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+
+  editButtonClick(editId: string): void{
+    this.routes.navigate(['/survey/edit-survey', editId]);
   }
 
   RemoveSurvey(id: string): void{

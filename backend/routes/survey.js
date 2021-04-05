@@ -15,10 +15,10 @@ router.get('/', surveyController.displaysurveyList);
 router.post('/add', surveyController.postAddSurvey);
 
 /* GET Route for displaying the Edit page - UPDATE Operation */
-router.get('/edit/:id', checkAuth, surveyController.displayEditPage);
+router.get('/edit/:id', surveyController.displayEditPage);
 
 /* POST Route for processing the Edit page - UPDATE Operation */
-router.post('/edit/:id', checkAuth, surveyController.processEditPage);
+router.post('/edit/:id', surveyController.processEditPage);
 
 /* GET to perform  Deletion - DELETE Operation */
 router.get('/delete/:id', checkAuth, surveyController.performDelete);
