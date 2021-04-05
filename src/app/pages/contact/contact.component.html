@@ -1,0 +1,48 @@
+<div class="mt-3">
+
+  <div class="col-md-6 m-auto">
+
+      <h1>Contact Us</h1>
+
+    <div class="card card-body">
+    <div *ngIf="Response.length>0" class="alert alert-success alert-dismissible fade show" role="alert">
+      {{Response}}
+      <button type="button" class="close" (click)="dismiss()" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <form [formGroup]="contactForm"  class="form" method="POST" (submit)='onSubmit()' autocomplete="off">
+      <div class="form-group">
+        <mat-form-field class="example-full-width">
+        <input matInput type="text" placeholder="Name" class="form-control" formControlName='inputname' name="inputname" required />
+        <mat-error *ngIf="contactForm.invalid">This is required</mat-error>
+      </mat-form-field>
+      </div>
+      <div class="form-group">
+        <mat-form-field class="example-full-width">
+        <input matInput type="email" placeholder="Email address" class="form-control" formControlName='inputemail' name="inputemail"
+          aria-describedby="emailHelp" required />
+          <mat-error *ngIf="contactForm.invalid">This is required</mat-error>
+        </mat-form-field>
+      </div>
+      <div class="form-group">
+        <mat-form-field class="example-full-width">
+        <input matInput type="text" placeholder="Subject" class="form-control" formControlName='inputsubject' name="inputsubject" required />
+        <mat-error *ngIf="contactForm.invalid">This is required</mat-error>
+      </mat-form-field>
+      </div>
+      <div class="form-group">
+        <mat-form-field class="example-full-width">
+        <textarea matInput placeholder="Message" class="form-control" formControlName='inputmessage' name="inputmessage" rows="4" required></textarea>
+        <mat-error *ngIf="contactForm.invalid">This is required</mat-error>
+      </mat-form-field>
+      </div>
+
+
+        <button class="example-button-row" type="submit" mat-raised-button style="width:9vw" color="accent">Get in Touch</button>
+        <button mat-raised-button style="width:7vw"  color="primary" routerLink="/survey/list-survey" >Quit</button>
+
+    </form>
+  </div>
+</div>
+</div>

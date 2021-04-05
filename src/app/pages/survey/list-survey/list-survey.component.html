@@ -92,6 +92,15 @@
         </td>
       </ng-container>
 
+       <!-- Survey Report Column -->
+       <ng-container matColumnDef="report">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Report </th>
+        <td mat-cell *matCellDef="let row">
+            <a [routerLink]="['/survey/surveyreport', row._id]" >
+              <mat-icon style="font-size:40px;">analytics</mat-icon> </a>
+        </td>
+      </ng-container>
+
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 

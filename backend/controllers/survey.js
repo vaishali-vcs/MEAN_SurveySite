@@ -7,6 +7,7 @@ let jwt = require('jsonwebtoken');
 // create a reference to the model
 let Surveys = require('../models/survey');
 let SurveyResponses  = require('../models/survey.response');
+let Contact  = require('../models/contact');
 
 module.exports.displaysurveyList = (req, res, next) => {
   Surveys.find({},(err, surveyList) => {
@@ -146,3 +147,43 @@ module.exports.performDelete = (req, res, next) => {
         }
     });
 }
+
+module.exports.getResponses= (req, res, next) => {
+  let id = req.params.id;
+  SurveyResponses.find({surveyid : id},(err, surveyresponseList) => {
+    if(err)
+    {
+        return console.error(err);
+    }
+    else
+    {
+        res.status(200).json(surveyresponseList);
+    }
+});
+}
+
+module.exports.addContact= (req, res, next) => {
+  Contact
+  let newcontact = Contact({
+    name: req.body.name,
+    email: req.body.email,
+    subject: req.body.subject,
+    message: req.body.message,
+    createdon: req.body.createdon
+  });
+
+  Contact.create(newcontact, (err, survey) =>{
+    if(err)
+    {
+        console.log(err);
+        res.end(err);
+    }
+    else
+    {
+      res.status(200).json({success: true, msg: 'Successfully added contact'});
+    }
+});
+
+
+}
+

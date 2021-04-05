@@ -24,13 +24,16 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { MatChipsModule } from '@angular/material/chips';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { SurveyReportsComponent } from './survey-reports/survey-reports.component';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 @NgModule({
   imports: [BrowserModule, FormsModule, RouterModule,
     MatFormFieldModule, MatSelectModule, MatInputModule, BrowserAnimationsModule, MatRadioModule,
     MatDatepickerModule, MatNativeDateModule, MatButtonModule, MatTableModule, MatPaginatorModule,
-     MatCardModule, ReactiveFormsModule, MatIconModule,MatChipsModule, CoreComponentModule, FlexLayoutModule],
-  declarations: [ListSurveyComponent, AddSurveyComponent, EditSurveyComponent, RespondSurveyComponent],
+     MatCardModule, ReactiveFormsModule, MatIconModule,MatChipsModule, CoreComponentModule, FlexLayoutModule,
+     NgxChartsModule],
+  declarations: [ListSurveyComponent, AddSurveyComponent, EditSurveyComponent, RespondSurveyComponent, SurveyReportsComponent],
   exports: [ListSurveyComponent, AddSurveyComponent, EditSurveyComponent, CoreComponentModule]
 })
 

@@ -54,9 +54,9 @@ export class SurveyService {
   fetchSurveys(): Observable<SurveySchema[]>{
     return this.http.get<SurveySchema[]>(
       this.baseURl);
-      
 
-    
+
+
   }
 
   editSurvey(survey: SurveySchema): string{
@@ -97,5 +97,9 @@ export class SurveyService {
       }
   );
     return 'Survey deleted successfully.';
+  }
+
+  getSurveyResponses(id: string): Observable<SurveyResponseSchema[]> {
+    return this.http.get<SurveyResponseSchema[]>(this.baseURl + 'response/' + id);
   }
 }
