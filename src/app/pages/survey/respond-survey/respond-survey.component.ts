@@ -53,7 +53,6 @@ export class RespondSurveyComponent implements OnInit {
 
   ngOnInit(): void {
     this.getdata();
-
     this.surveyForm = new FormGroup(this.group);
   }
 

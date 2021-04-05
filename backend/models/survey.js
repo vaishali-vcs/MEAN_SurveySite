@@ -23,6 +23,10 @@ const surveySchema = new Schema({
     type: String,
     required: true
   },
+  description: {
+    type: String,
+    required: true
+  },
   created: {
     type: Date,
     required: true
