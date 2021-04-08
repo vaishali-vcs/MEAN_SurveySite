@@ -33,6 +33,7 @@ export class AuthService {
       .subscribe(response => {
         console.log(response);
       });
+      this.router.navigate(['/']);
   }
 
   login(email: string, password: string) {
@@ -82,12 +83,14 @@ export class AuthService {
     this.clearAuthData();
     this.router.navigate(['/']);
   }
+
   private setAuthTimer(duration: number) {
     console.log('Setting timer: ' + duration);
     this.tokenTimer = setTimeout(() => {
       this.logout();
     }, duration * 1000);
   }
+
   private saveAuthData(token: string, expirationDate: Date) {
     localStorage.setItem('token', token);
     localStorage.setItem('expiration', expirationDate.toISOString());
