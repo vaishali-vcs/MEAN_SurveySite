@@ -30,12 +30,16 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '../../public')));
 app.use(express.static(path.join(__dirname, '../../node_modules')));
+app.use(express.static(path.join(__dirname, '../surbay-app')));
 
 app.use(cors());
 
 // routing
 app.use('/api/admin/survey', surveyRouter);
 app.use('/api/admin/user', userRouter);
+app.use('/', function(req,res) {
+  res.sendFile(path.join(__dirname,
+  '../surbay-app/index.html'));});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

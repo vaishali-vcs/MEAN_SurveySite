@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  backendUrl: ""
+  backendUrl: "https://webapp-surbay.herokuapp.com/"
 };
