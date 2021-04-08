@@ -3,8 +3,10 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { SurveySchema } from 'src/app/models/survey.model';
 import { SurveyService } from '../../../services/survey.service';
+import { AuthService } from '../../auth/auth.service';
 
 @Component({
   selector: 'app-list-survey',
@@ -12,7 +14,10 @@ import { SurveyService } from '../../../services/survey.service';
   styleUrls: ['./list-survey.component.css']
 })
 export class ListSurveyComponent implements OnInit {
-  displayedColumns: string[] = ['title', 'status', 'edit', 'delete', 'report' ];
+  displayedColumnsAuths: string[] = ['title', 'description', 'status', 'edit', 'delete', 'report' ];
+  displayedColumns: string[] = ['title','description', 'status' ];
+  userIsAuthenticated = false;
+  private authListenerSubs: Subscription;
 
   serviceResponse = '';
   SurveyList: SurveySchema[] = [];
@@ -32,9 +37,15 @@ export class ListSurveyComponent implements OnInit {
 
   ngOnInit(): void {
     this.fetchData();
+    this.userIsAuthenticated = this.authService.getIsAuth();
+    this.authListenerSubs = this.authService
+      .getAuthStatusListener()
+      .subscribe((isAuthenticated) => {
+        this.userIsAuthenticated = isAuthenticated;
+      });
   }
 
-  constructor(private surveyService: SurveyService, public routes:Router) {
+  constructor(private surveyService: SurveyService, public routes:Router, private authService: AuthService) {
   }
 
   ngAfterViewInit() {

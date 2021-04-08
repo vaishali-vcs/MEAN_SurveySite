@@ -8,7 +8,26 @@ table {
 }
 
 td, th {
-  width: 25%;
+  width: 20%;
+}
+
+.mat-column-title {
+  flex: 0 0 30%;
+}
+.mat-column-description {
+  flex: 0 0 30%;
+}
+.mat-column-status {
+  flex: 0 0 10%;
+}
+.mat-column-edit {
+  flex: 0 0 10%;
+}
+.mat-column-remove {
+  flex: 0 0 10%;
+}
+.mat-column-report {
+  flex: 0 0 10%;
 }
 
 .example-card {
