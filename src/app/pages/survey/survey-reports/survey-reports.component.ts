@@ -1,3 +1,11 @@
+/*
+File Name: index.js
+Name: Vaishali Siddeshwar
+Student ID: 301172372
+Date: April-12-2021
+This module displays all Survey Report- bar chart of responses for a Survey.
+*/
+
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { SurveyService } from 'src/app/services/survey.service';
@@ -18,6 +26,7 @@ export class SurveyReportsComponent implements OnInit {
 
   title = 'Angular Charts';
 
+  // set chart size
   view: [number, number] = [300, 300];
 
   // options for the chart
@@ -31,6 +40,7 @@ export class SurveyReportsComponent implements OnInit {
   yAxisLabel = 'Sales';
   timeline = true;
 
+  // set colors for charts
   colorScheme = {
     domain: ['#9370DB', '#87CEFA', '#FA8072', '#FF7F50', '#90EE90', '#9370DB']
   };
@@ -45,7 +55,7 @@ responseschart: any = [];
     this.getdata();
   }
 
-
+  // get all survey reponses for a survey
   getdata(): void {
     if (this.surveyID.length > 0) {
      this.surveyService.getSurveyResponses(this.surveyID).subscribe(
@@ -59,6 +69,8 @@ responseschart: any = [];
           });
         });
 
+        // process the survey responses into counts for display
+        // by looping through options for a question and counting their answers in all reponses
         this.questions_lst.forEach(title => {
             data.forEach(element => {
             element.questions.forEach(qt => {

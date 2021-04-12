@@ -9,6 +9,7 @@ let Surveys = require('../models/survey');
 let SurveyResponses  = require('../models/survey.response');
 let Contact  = require('../models/contact');
 
+// function to read all surveys from Db
 module.exports.displaysurveyList = (req, res, next) => {
   Surveys.find((err, surveys) => {
         if(err)
@@ -22,6 +23,7 @@ module.exports.displaysurveyList = (req, res, next) => {
     });
 }
 
+// function to save a survey
 exports.postAddSurvey = ((req, res, next) => {
   const Survey = new Surveys({
     name: req.body.name,
@@ -45,6 +47,7 @@ exports.postAddSurvey = ((req, res, next) => {
 }
 );
 
+// function to add a Survey Response
 module.exports.addResponse = (req, res, next) => {
 
   const Response = new SurveyResponses({
@@ -67,6 +70,7 @@ module.exports.addResponse = (req, res, next) => {
   });
 }
 
+// function to find a survey by ID
 module.exports.displayEditPage = (req, res, next) => {
   let id = req.params.id;
   Surveys.findById(id, function(err, survey) {
@@ -80,6 +84,7 @@ module.exports.displayEditPage = (req, res, next) => {
     });
 }
 
+// function to update a Survey
 module.exports.processEditPage = (req, res, next) => {
   let id = req.params.id
 
@@ -108,6 +113,7 @@ module.exports.processEditPage = (req, res, next) => {
   });
 }
 
+// function to delete a survey
 module.exports.performDelete = (req, res, next) => {
     let id = req.params.id;
 
@@ -124,6 +130,7 @@ module.exports.performDelete = (req, res, next) => {
     });
 }
 
+// function to get Survey Responses
 module.exports.getResponses= (req, res, next) => {
   let id = req.params.id;
   SurveyResponses.find({surveyid : id},(err, surveyresponseList) => {
@@ -138,6 +145,7 @@ module.exports.getResponses= (req, res, next) => {
 });
 }
 
+// function to save Contact into DB
 module.exports.addContact= (req, res, next) => {
   Contact
   let newcontact = Contact({
