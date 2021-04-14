@@ -1,3 +1,11 @@
+/*
+File Name: index.js
+Name: Vaishali Siddeshwar
+Student ID: 301172372
+Date: April-12-2021
+This module displays Survey  and saves the Response.
+*/
+
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators, } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
@@ -33,12 +41,14 @@ export class RespondSurveyComponent implements OnInit {
     this.surveyID = this.route.snapshot.paramMap.get('id') as string;
   }
 
+  // get the Survey based on the ID
   getdata(): void {
 
     if (this.surveyID.length > 0) {
     this.surveyService.getSurvey(this.surveyID)
             .subscribe(
                 data => {
+                  // prepare the form controls based on the questions
                   this.surveyTitle = data.name;
                   data.questions.forEach(qstn => {
                     const id = Math.floor((Math.random() * 10) + 1).toString();
@@ -56,11 +66,13 @@ export class RespondSurveyComponent implements OnInit {
     this.surveyForm = new FormGroup(this.group);
   }
 
+  // event handler for Save click
   onSubmit(): void {
     if (!this.surveyForm.invalid) {
 
     const Questions: QuestionAnswerSchema[] = [];
 
+    //loop through all the form controls and collect their respinses
     this.formtemplate.forEach(inputtemplate => {
       Questions.push({question: inputtemplate.question,
       answer: this.surveyForm.controls[inputtemplate.controlName].value });
@@ -70,10 +82,13 @@ export class RespondSurveyComponent implements OnInit {
       surveyid: this.surveyID,   // hard coded for now
       questions: Questions
     };
+
+    // save the reponse object to DB
     this.serviceResponse = this.surveyService.addSurveyResponse(surveyResponseData);
     }
   }
 
+// event handler to dismiss messages displayed to user
   dismiss(): void{
     this.serviceResponse = '';
   }

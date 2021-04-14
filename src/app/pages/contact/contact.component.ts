@@ -1,3 +1,11 @@
+/*
+File Name: index.js
+Name: Vaishali Siddeshwar
+Student ID: 301172372
+Date: April-12-2021
+This module displays initializes and saves Contact Us Page.
+*/
+
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import {FormsModule,ReactiveFormsModule} from '@angular/forms';
@@ -23,6 +31,7 @@ export class ContactComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  // save text entered into DB on button click.
   onSubmit(): void{
 
     if (this.contactForm.invalid){
@@ -36,10 +45,13 @@ export class ContactComponent implements OnInit {
       message: this.contactForm.controls.inputmessage.value,
       createdon: new Date()
     };
+
+    // invoking the service to save
     this.contactService.addContact(contact);
     this.contactForm.reset();
   }
 
+  // dismiss the message shown to user.
   dismiss(): void{
     this.Response = '';
   }

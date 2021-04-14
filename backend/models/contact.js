@@ -1,3 +1,11 @@
+/*
+File Name: index.js
+Name: Vaishali Siddeshwar
+Student ID: 301172372
+Date: April-12-2021
+This module represents the schem of a Contact in Contacts collection
+*/
+
 const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;

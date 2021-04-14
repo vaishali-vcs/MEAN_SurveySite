@@ -1,3 +1,11 @@
+/*
+File Name: index.js
+Name: Vaishali Siddeshwar
+Student ID: 301172372
+Date: April-12-2021
+This module displays all Surveys and their Status.
+*/
+
 import { Component, ViewChild, OnInit } from '@angular/core'
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -14,6 +22,8 @@ import { AuthService } from '../../auth/auth.service';
   styleUrls: ['./list-survey.component.css']
 })
 export class ListSurveyComponent implements OnInit {
+
+  // columns to display
   displayedColumnsAuths: string[] = ['title', 'description', 'status', 'edit', 'delete', 'report' ];
   displayedColumns: string[] = ['title','description', 'status' ];
   userIsAuthenticated = false;
@@ -25,6 +35,7 @@ export class ListSurveyComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
+  // get Surveys
   fetchData(): void{
     this.surveyService.fetchSurveys().subscribe(data => {
       data.forEach(element =>
@@ -48,11 +59,13 @@ export class ListSurveyComponent implements OnInit {
   constructor(private surveyService: SurveyService, public routes:Router, private authService: AuthService) {
   }
 
+  // assign the datasource to table
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
 
+  // function for filter functionality
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
@@ -62,15 +75,18 @@ export class ListSurveyComponent implements OnInit {
     }
   }
 
+  //event handler for EDIT button click
   editButtonClick(editId: string): void{
     this.routes.navigate(['/survey/edit-survey', editId]);
   }
 
+  // event handler for DELETE button click
   RemoveSurvey(id: string): void{
     this.serviceResponse = this.surveyService.deleteSurvey(id);
     this.fetchData();
   }
 
+  // event handler to dismiss messages displayed to user
   dismiss(): void{
     this.serviceResponse = '';
   }
